@@ -66,7 +66,9 @@ export class UserService {
 
     return {
       post_list: post,
-      count: user.count,
+      name: user.name,
+      image: user.profileImage,
+      school: user.school,
     };
   }
 }

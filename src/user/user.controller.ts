@@ -5,6 +5,8 @@ import {
   Headers,
   HttpCode,
   Post,
+  Request,
+  Response,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -13,10 +15,14 @@ import { SignInRequest } from './dto/request/signIn.request';
 import { TokenResponse } from './dto/response/Token.response';
 import { JwtGuard } from '../middleware/jwt/jwt.guard';
 import { ProfileResponse } from './dto/response/profile.response';
+import { ImageService } from '../image/image.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly imageService: ImageService,
+  ) {}
 
   @Post('signup')
   public async signup(@Body() body: SignUpRequest): Promise<void> {
@@ -33,5 +39,11 @@ export class UserController {
   @Get('profile')
   public async profile(@Headers() headers): Promise<ProfileResponse> {
     return await this.userService.profile(headers);
+  }
+
+  @UseGuards(JwtGuard)
+  @Post('image')
+  public async create(@Request() request, @Response() response) {
+    await this.imageService.fileUpload(request, response);
   }
 }

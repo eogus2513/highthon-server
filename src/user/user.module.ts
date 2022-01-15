@@ -6,9 +6,10 @@ import { JwtStrategy } from '../middleware/jwt/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { Post } from '../post/entity/post.entity';
+import { ImageModule } from '../image/image.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Post]), AuthModule],
+  imports: [TypeOrmModule.forFeature([User, Post]), AuthModule, ImageModule],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],
 })
