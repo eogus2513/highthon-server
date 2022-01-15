@@ -5,9 +5,9 @@ import {
   Headers,
   HttpCode,
   Post,
-  Request,
-  Response,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignUpRequest } from './dto/request/signUp.request';
@@ -16,6 +16,7 @@ import { TokenResponse } from './dto/response/Token.response';
 import { JwtGuard } from '../middleware/jwt/jwt.guard';
 import { ProfileResponse } from './dto/response/profile.response';
 import { ImageService } from '../image/image.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('user')
 export class UserController {
@@ -41,9 +42,12 @@ export class UserController {
     return await this.userService.profile(headers);
   }
 
-  @UseGuards(JwtGuard)
   @Post('image')
-  public async create(@Request() request, @Response() response) {
-    await this.imageService.fileUpload(request, response);
+  @UseInterceptors(FileInterceptor('image'))
+  public async addPrivateFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Headers() headers,
+  ): Promise<void> {
+    await this.imageService.uploadPrivateFile(file, headers);
   }
 }
