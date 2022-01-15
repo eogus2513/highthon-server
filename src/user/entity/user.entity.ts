@@ -16,7 +16,7 @@ export class User {
   @Column({ nullable: false, length: 60 })
   password: string;
 
-  @Column({ name: 'profile_image' })
+  @Column({ name: 'profile_image', nullable: true })
   profileImage: string;
 
   @OneToMany(() => Post, (post) => post.id, {
