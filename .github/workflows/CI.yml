@@ -22,7 +22,3 @@ jobs:
         run: |
           npm ci
           npm run build
-          
-      - name: Run Start
-        run: |
-          npm run start:prod
