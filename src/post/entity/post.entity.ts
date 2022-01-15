@@ -30,5 +30,5 @@ export class Post {
   user: User;
 
   @CreateDateColumn()
-  createAt: Date;
+  create_at: Date;
 }
