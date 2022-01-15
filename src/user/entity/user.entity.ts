@@ -7,7 +7,7 @@ export class User {
   @PrimaryColumn()
   id: string;
 
-  @Column({ nullable: false, length: 15 })
+  @Column({ nullable: false, length: 4 })
   name: string;
 
   @Column({ nullable: false })
