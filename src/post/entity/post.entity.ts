@@ -20,7 +20,7 @@ export class Post {
   content: string;
 
   @Column({ nullable: false })
-  url: string;
+  image: string;
 
   @Column({ nullable: false })
   category: string;
