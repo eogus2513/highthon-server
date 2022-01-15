@@ -62,7 +62,28 @@ export class UserService {
   public async profile(headers): Promise<ProfileResponse> {
     const token = await this.authService.bearerToken(headers.authorization);
     const user: User = await this.userRepository.findOne(token.sub);
-    const post: PostListResponse[] = await this.postRepository.find();
+    const post: PostListResponse[] = await this.postRepository
+      .createQueryBuilder('post')
+      .where('post.user_id = :id', { id: user.id })
+      .getRawMany();
+
+    return {
+      post_list: post,
+      name: user.name,
+      image: user.profileImage,
+      school: user.school,
+    };
+  }
+
+  public async userProfile(param): Promise<ProfileResponse> {
+    const user: User = await this.userRepository.findOne(param);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    const post: PostListResponse[] = await this.postRepository
+      .createQueryBuilder('post')
+      .where('post.user_id = :id', { id: user.id })
+      .getMany();
 
     return {
       post_list: post,

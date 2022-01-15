@@ -2,9 +2,12 @@ import {
   Body,
   Controller,
   Get,
+  Header,
   Headers,
   HttpCode,
+  Param,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -40,6 +43,12 @@ export class UserController {
   @Get('profile')
   public async profile(@Headers() headers): Promise<ProfileResponse> {
     return await this.userService.profile(headers);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('profile/:id')
+  public async userProfile(@Param() params): Promise<ProfileResponse> {
+    return await this.userService.userProfile(params);
   }
 
   @Post('image')
