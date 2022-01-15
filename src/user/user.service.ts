@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -26,7 +27,7 @@ export class UserService {
     password,
   }: SignUpRequest): Promise<void> {
     if (await this.userRepository.findOne({ id: id })) {
-      throw new NotFoundException();
+      throw new ConflictException();
     }
 
     const hashedPassword = await hash(password, 12);
