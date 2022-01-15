@@ -14,21 +14,7 @@ export class AuthService {
       {
         secret: process.env.ACCESS_JWT,
         algorithm: 'HS256',
-        expiresIn: '1h',
-      },
-    );
-  }
-
-  public async generateRefreshToken(id: string): Promise<string> {
-    return await this.jwtService.signAsync(
-      {
-        sub: `${id}`,
-        type: 'refresh',
-      },
-      {
-        secret: process.env.REFRESH_JWT,
-        algorithm: 'HS256',
-        expiresIn: '360h',
+        expiresIn: '24h',
       },
     );
   }
