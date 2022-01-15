@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { SignUpRequest } from './dto/request/signUp.request';
 import { SignInRequest } from './dto/request/signIn.request';
@@ -13,7 +13,6 @@ export class UserController {
     await this.userService.signUp(body);
   }
 
-  @UseGuards()
   @HttpCode(200)
   @Post('signin')
   public async login(@Body() body: SignInRequest): Promise<TokenResponse> {
