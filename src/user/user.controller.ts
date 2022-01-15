@@ -51,6 +51,7 @@ export class UserController {
     return await this.userService.userProfile(params);
   }
 
+  @UseGuards(JwtGuard)
   @Post('image')
   @UseInterceptors(FileInterceptor('image'))
   public async addPrivateFile(
