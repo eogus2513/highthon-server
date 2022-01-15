@@ -16,7 +16,7 @@ const connectionOptions: DBConnectionOptions = {
     password: process.env.PASSWORD,
     database: process.env.NAME,
     entities: [User, Post],
-    synchronize: true,
+    synchronize: false,
   },
 };
 
