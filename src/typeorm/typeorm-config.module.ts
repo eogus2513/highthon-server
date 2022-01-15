@@ -3,6 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { connectionOptions } from './ormconfig';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(connectionOptions['server'])],
+  imports: [TypeOrmModule.forRoot(connectionOptions['SDK'])],
 })
 export class TypeormConfigModule {}

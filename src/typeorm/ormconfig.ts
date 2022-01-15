@@ -8,7 +8,7 @@ interface DBConnectionOptions {
 }
 
 const connectionOptions: DBConnectionOptions = {
-  server: {
+  SDK: {
     type: 'mysql',
     host: process.env.HOST,
     port: +process.env.PORT,
