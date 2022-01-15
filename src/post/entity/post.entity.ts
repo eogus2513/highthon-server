@@ -26,7 +26,7 @@ export class Post {
   category: string;
 
   @ManyToOne(() => User, (user) => user.id, { nullable: false })
-  @JoinColumn()
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @CreateDateColumn()
