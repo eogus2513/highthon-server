@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
 import 'dotenv/config';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,6 +14,9 @@ export class ImageService {
   ) {}
 
   async uploadPrivateFile(file: Express.Multer.File, headers): Promise<void> {
+    if (!file) {
+      throw new NotFoundException('file not found!');
+    }
     const user = await this.authService.bearerToken(headers.authorization);
     const s3 = new S3();
     const uploadResult = await s3
