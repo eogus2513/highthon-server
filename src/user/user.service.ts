@@ -12,10 +12,14 @@ import { compare, hash } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
+import { ProfileResponse } from './dto/response/profile.response';
+import { Post } from '../post/entity/post.entity';
+import { PostListResponse } from './dto/response/postList.response';
 
 @Injectable()
 export class UserService {
   constructor(
+    @InjectRepository(Post) private postRepository: Repository<Post>,
     @InjectRepository(User) private userRepository: Repository<User>,
     private readonly authService: AuthService,
   ) {}
@@ -36,6 +40,7 @@ export class UserService {
       name: name,
       school: school,
       password: hashedPassword,
+      count: 0,
     });
   }
 
@@ -51,6 +56,17 @@ export class UserService {
 
     return {
       access_token: await this.authService.generateAccessToken(id),
+    };
+  }
+
+  public async profile(headers): Promise<ProfileResponse> {
+    const token = await this.authService.bearerToken(headers.authorization);
+    const user: User = await this.userRepository.findOne(token.sub);
+    const post: PostListResponse[] = await this.postRepository.find();
+
+    return {
+      post_list: post,
+      count: user.count,
     };
   }
 }
