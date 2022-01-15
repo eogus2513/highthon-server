@@ -51,7 +51,6 @@ export class UserService {
 
     return {
       access_token: await this.authService.generateAccessToken(id),
-      refresh_token: await this.authService.generateRefreshToken(id),
     };
   }
 }
