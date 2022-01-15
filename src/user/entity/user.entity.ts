@@ -16,6 +16,9 @@ export class User {
   @Column({ nullable: false, length: 60 })
   password: string;
 
+  @Column({ nullable: false })
+  count: number;
+
   @OneToMany(() => Post, (post) => post.id, {
     nullable: false,
   })
