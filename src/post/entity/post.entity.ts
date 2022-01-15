@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -27,4 +28,7 @@ export class Post {
   @ManyToOne(() => User, (user) => user.id, { nullable: false })
   @JoinColumn()
   user: User;
+
+  @CreateDateColumn()
+  createAt: Date;
 }
