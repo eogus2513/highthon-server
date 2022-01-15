@@ -4,13 +4,13 @@ import { Post } from '../../post/entity/post.entity';
 
 @Entity()
 export class User {
-  @PrimaryColumn()
+  @PrimaryColumn({ length: 16 })
   id: string;
 
   @Column({ nullable: false, length: 4 })
   name: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, length: 16 })
   school: SCHOOL;
 
   @Column({ nullable: false, length: 60 })
