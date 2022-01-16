@@ -18,7 +18,7 @@ export class ImageService {
     headers,
   ): Promise<void> {
     if (!file) {
-      throw new NotFoundException('file not found!');
+      throw new NotFoundException();
     }
     const user = await this.authService.bearerToken(headers.authorization);
     const uploadResult = await new S3()
