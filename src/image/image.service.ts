@@ -22,7 +22,7 @@ export class ImageService {
       .upload({
         Bucket: process.env.AWS_BUCKET_NAME,
         Body: file.buffer,
-        Key: `${Date.now().toString()} - ${file.originalname}`,
+        Key: `${Date.now().toString()}-${file.originalname}`,
       })
       .promise();
 
