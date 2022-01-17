@@ -54,10 +54,10 @@ export class UserController {
   @UseGuards(JwtGuard)
   @Post('image')
   @UseInterceptors(FileInterceptor('image'))
-  public async addPrivateFile(
+  public async uploadImage(
     @UploadedFile() file: Express.Multer.File,
     @Headers() headers,
   ): Promise<void> {
-    await this.imageService.uploadPrivateFile(file, headers);
+    await this.imageService.uploadImage(file, headers);
   }
 }

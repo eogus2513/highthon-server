@@ -13,10 +13,7 @@ export class ImageService {
     private readonly authService: AuthService,
   ) {}
 
-  public async uploadPrivateFile(
-    file: Express.Multer.File,
-    headers,
-  ): Promise<void> {
+  public async uploadImage(file: Express.Multer.File, headers): Promise<void> {
     if (!file) {
       throw new NotFoundException();
     }
