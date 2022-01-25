@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeormConfigModule } from '../typeorm/typeorm-config.module';
@@ -9,6 +9,6 @@ import { ImageModule } from '../image/image.module';
 @Module({
   imports: [TypeormConfigModule, AuthModule, UserModule, ImageModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Logger],
 })
 export class AppModule {}
